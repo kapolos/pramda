@@ -305,8 +305,10 @@ The eager function will take a copy of the whole array before goinf any work on 
 Lazy:
 ```php
 $double = function($arr) {
-	yield $arr * 2;
-}
+	foreach($arr as $item) {
+		yield $item * 2;
+	}
+};
 $list = $double([1,2,3]);
 foreach($list as $item) {
 	echo $item.' ';
