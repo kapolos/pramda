@@ -42,7 +42,7 @@ $getWordsFrequencyDesc = P::compose(
     'P::flatten',
     $wordsPerLine
 );
-$topFiveFreq = P::compose(P::toArray, P::take(5), $getWordsFrequencyDesc); // Just the top 5, for fun
+$topFiveFreq = P::compose('P::toArray', P::take(5), $getWordsFrequencyDesc); // Just the top 5, for fun
 $printEm = P::each(function($value, $key) {
    echo $key . ": " . $value . "\n";
 });
