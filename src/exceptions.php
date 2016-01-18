@@ -8,19 +8,19 @@ class Exception extends \Exception
     /**
      * @param $collection
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public static function assertArray($collection)
     {
         if (!is_array($collection)) {
-            throw new \Exception("Argument is not an array");
+            throw new \InvalidArgumentException("Argument is not an array");
         }
     }
 
     /**
      * @param callable $callable
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public static function assertCallable($callable)
     {
@@ -50,25 +50,25 @@ class Exception extends \Exception
             }
         }
 
-        throw new \Exception("Argument is not a callable");
+        throw new \InvalidArgumentException("Argument is not a callable");
     }
 
     /**
      * @param int|float $number
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public static function assertInteger($number)
     {
         if (!is_integer($number)) {
-            throw new \Exception("Argument is not an integer");
+            throw new \InvalidArgumentException("Argument is not an integer");
         }
     }
 
     /**
      * @param mixed $collection
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public static function assertList($collection)
     {
@@ -77,65 +77,70 @@ class Exception extends \Exception
             !is_array($collection) &&
             !($collection instanceof \Generator)
         ) {
-            throw new \Exception("Argument is not a collection");
+            throw new \InvalidArgumentException("Argument is not a collection");
         }
     }
 
     /**
      * @param int|float $number
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public static function assertNonZero($number)
     {
         self::assertNumber($number);
         if ($number === 0) {
-            throw new \Exception("Argument is zero");
+            throw new \InvalidArgumentException("Argument is a zero");
         }
     }
 
     /**
      * @param int|float $number
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public static function assertNumber($number)
     {
         if (!is_numeric($number)) {
-            throw new \Exception("Argument is not a number");
+            throw new \InvalidArgumentException("Argument is not a number");
         }
     }
 
     /**
      * @param int|float $number
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public static function assertPositiveInteger($number)
     {
         self::assertInteger($number);
         if ($number < 1) {
-            throw new \Exception("Argument not positive");
+            throw new \InvalidArgumentException("Argument is not positive");
         }
     }
 
     /**
      * @param int|float $number
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public static function assertPositiveIntegerOrZero($number)
     {
         self::assertInteger($number);
         if ($number < 0) {
-            throw new \Exception("Argument not (positive or zero)");
+            throw new \InvalidArgumentException("Argument is not (positive or zero)");
         }
     }
 
+    /**
+     * @param string $str
+     * 
+     * @throws \InvalidArgumentException
+     */
     public static function assertString($str)
     {
         if (!is_string($str)) {
-            throw new \Exception("Argument is not a string");
+            throw new \InvalidArgumentException("Argument is not a string");
         }
     }
 }
