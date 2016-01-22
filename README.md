@@ -174,7 +174,9 @@ $after = $doubleAllNumbers($before);
 
 So again - why? The answer is (once more) the same. By avoiding direct iteration we will be using functions which, as we saw above, we can compose of. Sweet!
 
-Note: Not all iterations can be replaced by `map/reduce` but all can be replaced by recursion. While PHP does not support tail recursion and blows its stack at a depth of 100, we can use the trampoline technique to avoid using the stack for each invokation. Pramda includes a `trampoline` function to help you do that.
+Note: Not all iterations can be replaced by `map/reduce` but all can be replaced by recursion. While PHP does not support tail recursion and blows its stack at a depth of 100<sup>1</sup>, we can use the trampoline technique to avoid using the stack for each invokation. Pramda includes a `trampoline` function to help you do that.
+
+<sup>1</sup>: 100 with XDebug enabled, otherwise the exact number depends - the [manual](https://secure.php.net/manual/en/functions.user-defined.php) advises against doing "100-200 recursion levels".
 
 ### Currying
 
