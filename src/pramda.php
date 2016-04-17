@@ -25,6 +25,7 @@ class P
     const countBy = 'P::countBy';
     const curry2 = 'P::curry2';
     const curry3 = 'P::curry3';
+    const curry4 = 'P::curry4';
     const curryN = 'P::curryN';
     const dec = 'P::dec';
     const divide = 'P::divide';
