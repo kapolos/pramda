@@ -672,6 +672,33 @@ class Pramda_TestCase extends \PHPUnit_Framework_TestCase
         $this->assertEquals([5], P::of(5));
     }
 
+    public function testPartial()
+    {
+        $double = P::partial(P::multiply, [2]);
+        $this->assertEquals(6, $double(3));
+
+        $greet = function ($salutation, $title, $firstName, $lastName) {
+            return $salutation . ', ' . $title . ' ' . $firstName . ' ' . $lastName . '!';
+        };
+
+        $sayHello = P::partial($greet, ['Hello']);
+        $sayHelloToMs = P::partial($sayHello, ['Ms.']);
+        $this->assertEquals('Hello, Ms. Jane Jones!', $sayHelloToMs('Jane', 'Jones'));
+    }
+
+    public function testPartialRight()
+    {
+        $double = P::partialRight(P::multiply, [2]);
+        $this->assertEquals(6, $double(3));
+
+        $greet = function ($salutation, $title, $firstName, $lastName) {
+            return $salutation . ', ' . $title . ' ' . $firstName . ' ' . $lastName . '!';
+        };
+
+        $greetMsJaneJones = P::partialRight($greet, ['Ms.', 'Jane', 'Jones']);
+        $this->assertEquals('Hello, Ms. Jane Jones!', $greetMsJaneJones('Hello'));
+    }
+
     public function testPartition()
     {
         $a = function () {

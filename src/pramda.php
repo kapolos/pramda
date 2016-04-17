@@ -58,6 +58,8 @@ class P
     const negate = 'P::negate';
     const nth = 'P::nth';
     const of = 'P::of';
+    const partial = 'P::partial';
+    const partialRight = 'P::partialRight';
     const partition = 'P::partition';
     const pipe = 'P::pipe';
     const pluck = 'P::pluck';
@@ -1424,6 +1426,42 @@ class P
     {
 
         return [$el];
+    }
+
+    /**
+     * Takes a function f and a list of arguments, and returns a function g. When applied, g returns the result of
+     * applying f to the arguments provided initially followed by the arguments provided to g
+     *
+     * @param $callable callable Function f
+     * @param $args     array The initial list of arguments
+     *
+     * @return callable Function g
+     */
+    public static function partial($callable, $args)
+    {
+        return function () use ($callable, $args) {
+            $arguments = func_get_args();
+
+            return self::apply($callable, array_merge($args, $arguments));
+        };
+    }
+
+    /**
+     * Takes a function f and a list of arguments, and returns a function g. When applied, g returns the result of
+     * applying f to the arguments provided to g followed by the arguments provided initially.
+     *
+     * @param $callable callable Function f
+     * @param $args     array The initial list of arguments
+     *
+     * @return callable Function g
+     */
+    public static function partialRight($callable, $args)
+    {
+        return function () use ($callable, $args) {
+            $arguments = func_get_args();
+
+            return self::apply($callable, array_merge($arguments, $args));
+        };
     }
 
     /**
