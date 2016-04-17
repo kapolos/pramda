@@ -532,29 +532,8 @@ class P
      */
     public static function curry2($callable)
     {
-        Exception::assertCallable($callable);
 
-        return function () use ($callable) {
-            $args = func_get_args();
-
-            switch (func_num_args()) {
-                case 0:
-                    throw new Exception("Invalid number of arguments");
-                    break;
-                case 1:
-                    return function ($b) use ($args, $callable) {
-                        return call_user_func_array($callable, [$args[0], $b]);
-                    };
-                    break;
-                case 2:
-                    return call_user_func_array($callable, $args);
-                    break;
-                default:
-                    // Why? To support passing curried functions as parameters to functions that pass more that 2 parameters, like reduce
-                    return call_user_func_array($callable, [$args[0], $args[1]]);
-                    break;
-            }
-        };
+        return self::curryN(2, $callable);
     }
 
     /**
@@ -571,36 +550,28 @@ class P
     {
         Exception::assertCallable($callable);
 
-        return function () use ($callable) {
-            $args = func_get_args();
-
-            switch (func_num_args()) {
-                case 0:
-                    throw new Exception("Invalid number of arguments");
-                    break;
-                case 1:
-                    return self::curry2(function ($b, $c) use ($args, $callable) {
-                        return call_user_func_array($callable, [$args[0], $b, $c]);
-                    });
-                    break;
-                case 2:
-                    return function ($c) use ($args, $callable) {
-                        return call_user_func_array($callable, [$args[0], $args[1], $c]);
-                    };
-                    break;
-                case 3:
-                    return call_user_func_array($callable, $args);
-                    break;
-                default:
-                    // Similarly to curry2()
-                    return call_user_func_array($callable, [$args[0], $args[1], $args[2]]);
-                    break;
-            }
-        };
+        return self::curryN(3, $callable);
     }
 
     /**
-     * Wrapper for curry* functions.
+     * Returns a curried equivalent of the provided 4-arity function.
+     *
+     * @category Function
+     *
+     * @param $callable
+     *
+     * @return callable
+     * @throws Exception
+     */
+    public static function curry4($callable)
+    {
+        Exception::assertCallable($callable);
+
+        return self::curryN(4, $callable);
+    }
+
+    /**
+     * Returns a curried equivalent of the provided N-arity function.
      *
      * @category Function
      *
@@ -611,17 +582,10 @@ class P
      */
     public static function curryN($arity, $callable)
     {
-        switch ($arity) {
-            case '2':
-                return self::curry2($callable);
-                break;
-            case '3':
-                return self::curry3($callable);
-                break;
-            default:
-                throw new RuntimeException;
-                break;
-        }
+        Exception::assertPositiveInteger($arity - 1);
+        Exception::assertCallable($callable);
+
+        return self::_curry($callable, [], (int)$arity);
     }
 
     /**
@@ -2416,6 +2380,32 @@ class P
         for (reset($arr); is_int(key($arr)); next($arr)) ;
 
         return !is_null(key($arr)) ? TRUE : FALSE;
+    }
+
+    /**
+     * Recursive currying
+     *
+     * Code based on: https://github.com/camspiers/php-fp/blob/master/src/fp.php
+     *
+     * @param callable $callable The callable
+     * @param array    $args     The callable's arguments
+     * @param integer  $arity    The callable's arity
+     *
+     * @return callable
+     */
+    private function _curry(callable $callable, $args, $arity)
+    {
+
+        return function () use ($callable, $args, $arity) {
+            $arguments = func_get_args();
+            $args = array_merge($args, $arguments);
+
+            if (count($args) >= $arity) {
+                return call_user_func_array($callable, $args);
+            } else {
+                return self::_curry($callable, $args, $arity);
+            }
+        };
     }
 
 }
