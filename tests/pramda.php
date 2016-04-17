@@ -256,6 +256,19 @@ class Pramda_TestCase extends \PHPUnit_Framework_TestCase
         $this->assertEquals(11, $plus5(10, -4));
     }
 
+    public function testCurry4()
+    {
+        $sum4 = function ($a, $b, $c, $d) {
+            return $a + $b + $c + $d;
+        };
+        $curriedSum4 = P::curry4($sum4);
+        $plus5 = $curriedSum4(5);
+        $plus10 = $plus5(10);
+        $minus4 = $plus10(-4);
+        $minus1 = $minus4(-1);
+        $this->assertEquals(10, $minus1);
+    }
+
     public function testCurryN()
     {
         $sum2 = function ($a, $b) {
