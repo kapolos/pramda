@@ -87,8 +87,9 @@ class P
     const toArray = 'P::toArray';
     const trampoline = 'P::trampoline';
     const unapply = 'P::unapply';
+    const unary = 'P::unary';
     const uniq = 'P::uniq';
-    const unnesst = 'P::unnesst';
+    const unnest = 'P::unnest';
     const values = 'P::values';
     const zip = 'P::zip';
     const zipAssoc = 'P::zipAssoc';
