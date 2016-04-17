@@ -309,6 +309,14 @@ class P
             Exception::assertCallable($callable);
             Exception::assertList($list);
 
+            /*
+             * Support for implicit class functions
+             * To allow for syntax like countBy('identity')
+             */
+            if (is_string($callable) && !function_exists($callable)) {
+                $callable = ['P', $callable];
+            }
+
             return call_user_func_array($callable, self::toArray($list));
         };
 

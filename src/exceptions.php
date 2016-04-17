@@ -47,6 +47,11 @@ class Exception extends \Exception
                 if (function_exists($callable)) {
                     return;
                 }
+
+                // Support for implicit P function
+                if (is_callable(['P', $callable])) {
+                    return;
+                }
             }
         }
 
