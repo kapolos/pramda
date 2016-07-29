@@ -13,11 +13,11 @@ Is it possible that something you're working on could be done in a different way
 
 Now, if you go and read Haskell's [Functional Programming](https://wiki.haskell.org/Functional_programming) Wiki page, you might get the impression that it's some really complex, weird, unnecessary convoluted ... "thing". That's just because texts about Functional Programming - even introductory ones - are usually written in a dry "academic" way with which most PHP programmers are not accustomed with. In reality though, Functional Programming is about things you already do and espouse in your daily practice, taken to the maximum.
 
-For example, you most probably have been using Composer. The idea behind package managers like it, is that you create stand-alone pieces of work that you can then at will compose into something bigger. Well, **congratulations**, that's exactly what Functional Programming is about - but instead of working with "packages", you work with functions. Explained like that, it makes perfect sense. If you understand the benefits of composing packages, you understand the benefits of working with composable functions.
+For example, you most probably have been using Composer. The idea behind package managers such as Composer, is that you create stand-alone pieces of work that you can then (at will) compose into something bigger. Well, **congratulations**, that's exactly what Functional Programming is about - but instead of working with "packages", you work with functions. Explained like that, it makes perfect sense. If you understand the benefits of composing packages, you understand the benefits of working with composable functions.
 
-Just like you have to follow some conventions when creating and utilizing a Composer package, you need to follow some conventions when working with functions. The good news are that it's as hard to do that as riding a bicycle. Do you remember how hard it was the first few times? And how it became a second nature shortly after? It's the same thing with Functional Programming if you manage to stick with it after the first few falls. At first, things will seem unnatural compared to the way you're used to. Later on, you'll come to realize that just like the bike, Functional Programming can be efficient and fun. And just like you know that using a bicycle is not always the best choice for every situation, you'll know when to pick Functional Programming from your toolbox to sculpture your masterpiece.
+Just as you have to follow some conventions when creating and utilizing a Composer package, you need to follow some conventions when working with functions. The good news is that it's as easy as riding a bicycle. Do you remember how hard it was the first few times? And how it became second nature shortly after? It's the same thing with Functional Programming if you manage to stick with it after the first few falls. At first, things will seem unnatural compared to the way you're used to. Later on, you'll come to realize that just like the bike, Functional Programming can be efficient and fun. And just like you know that using a bicycle is not always the best choice for every situation, you'll know when to pick Functional Programming from your toolbox to sculpt your masterpiece.
 
-#### Show me a code example if you want me to read the text wall below
+#### Show me a code example if you want me to read the wall of text below
 
 Task: 
 
@@ -122,7 +122,7 @@ $getSortedTweets = $compose('sortByDateAsc', 'getTweets');
 $mySortedTweets = $getSortedTweets('kapolos');
 ```
 
-It still does the same thing. Only now, we can pass as parameters the fetching and the sorting functions. And all this juggling was done exactly for this reason. To have a function at which we can pass other functions and it will make for us a new function which we will use later on.
+It still does the same thing, only now we can pass the fetching and sorting functions as parameters. And all this juggling was done exactly for this reason. To have a function to which we can pass other functions and it will make for us a new function which we can use later on.
 
 In other words, we just described the way in which we are going to be plugging functions together . Doing it this way (creating a function that returns a new function) will allow us to do the cool things later on.
 
@@ -139,7 +139,7 @@ Notice how the order of execution in composition is from right to left. `P::pipe
 
 Time to forget `for`, `foreach`, `while` and all the other gazillion ways to loop through a list. Instead you will be using `map`, `reduce` and friends.
 
-Whenever you have an array, you will mentally disregard the ability iterate over its items one by one. Instead, you will be thinking - "_what function can I apply over this set of values and give me a new set that will be like X_"? Yes, the function will still be applying the transformation to each item individually.
+Whenever you have an array, you will mentally disregard the ability to iterate over its items one by one. Instead, you should be thinking - "_what function can I apply over this set of values to give me a new set that will be like X_"? Yes, the function will still be applying the transformation to each item individually.
 
 Instead of:
 ```php
@@ -172,9 +172,9 @@ $after = $doubleAllNumbers($before);
 /* P::toArray($after) //=> [2,4,6,8,10] */
 ```
 
-So again - why? The answer is (once more) the same. By avoiding direct iteration we will be using functions which, as we saw above, we can compose of. Sweet!
+So again - why? The answer is (once more) the same. By avoiding direct iteration we will be using functions which, as we saw above, we can compose. Sweet!
 
-Note: Not all iterations can be replaced by `map/reduce` but all can be replaced by recursion. While PHP does not support tail recursion and blows its stack at a depth of 100<sup>1</sup>, we can use the trampoline technique to avoid using the stack for each invokation. Pramda includes a `trampoline` function to help you do that.
+Note: Not all iterations can be replaced by `map/reduce` but all can be replaced by recursion. While PHP does not support tail recursion and blows its stack at a depth of 100<sup>1</sup>, we can use the trampoline technique to avoid using the stack for each invocation. Pramda includes a `trampoline` function to help you do that.
 
 <sup>1</sup>: 100 with XDebug enabled, otherwise the exact number depends - the [manual](https://secure.php.net/manual/en/functions.user-defined.php) advises against doing "100-200 recursion levels".
 
@@ -209,7 +209,7 @@ $inc = $add(1);
 
 In other words, a curried function is able to execute step by step. In the example above, `$add(1)` is a new function that takes one argument. Once it is called, it applies both "1" and the latest passed value to the original `$add`  function.
 
-`P` functions are curried by default (unless it doesn't make sense to or are explicitly marked as non-curried).
+`P` functions are curried by default (unless it doesn't make sense to, or they are explicitly marked as non-curried).
 ```php
 $inc = P::add(1); // P::add is an existing function
 ```
@@ -279,7 +279,7 @@ $counter //=> 0
 
 ### Lazy evaluation
 
-When you need load a small/medium size text file, you probably use `file`, which loads the whole text into an array. When you need to work with a huge file, this approach does not work and you use an alternative implementation with `fgets` to read the content of the file line by line, in order to avoid hitting the memory limit.
+When you need to load a small/medium size text file, you probably use `file`, which loads the whole text into an array. When you need to work with a huge file, this approach does not work and you use an alternative implementation with `fgets` to read the content of the file line by line, in order to avoid hitting the memory limit.
 
 Lazy evaluation is about doing the same thing but with objects that implement the `Iterator` interface instead of IO.
 
@@ -288,7 +288,7 @@ Lazy evaluation:
 * only use the part of the list you need, when you need it. 
 * only provide one item of the list each time another function asks for the list inside a loop
 
-PHP support lazy evaluation via the `Generator` primitives since v5.5
+PHP supports lazy evaluation via the `Generator` primitives since v5.5
 
 Eager:
 ```php
@@ -302,7 +302,7 @@ $double = function($arr) {
 // $double([1,2,3]); /=> [2,4,6]
 ```
 
-The eager function will take a copy of the whole array before goinf any work on it. Then it will compute a new array and return that as a result.
+The eager function will take a copy of the whole array before doing any work on it, then it will compute a new array and return that as the result.
 
 Lazy:
 ```php
@@ -318,9 +318,9 @@ foreach($list as $item) {
 //=> 2 4 6
 ```
 
-The lazy function takes only one item  from the array each time it needs to and yields (returns) the result as a value of a generator. Whenever (usually at the end of a long path of transformations) we need to use the actual values, we iterate over the generator and get the value of each item.
+A lazy function takes only one item  from the array each time it needs to and yields (returns) the result as a value of a generator. Whenever (usually at the end of a long path of transformations) we need to use the actual values, we iterate over the generator and get the value of each item.
 
-The great benefit of generators is less memory usage. Since arrays are not copied on every function,we need to occupy less memory.  Given that functional programing is all about passing immutable data to functions, lazy evaluation is a big win.
+The great benefit of generators is lower memory usage. Since arrays are not copied on every function, less memory will be occupied.  Given that functional programing is all about passing immutable data to functions, lazy evaluation is a big win.
  
 
 ## Pramda
@@ -341,7 +341,7 @@ Pramda started as my desire to bring Ramda.js from the world of Javascript over 
 Notable differences include:
 * Pramda supports lazy evaluation wherever possible. Efficiency and memory use are major concerns.
 * Pramda will not port/follow Fantasy-land spec.
-* Not a 1-to-1 port for 2 reasons. First, some things are Javascript-isms that have no place on a PHP library. Furthermore, some functions make better sense for PHP usage if implemented differently from Ramda.js.
+* Not a 1-to-1 port for 2 reasons. First, some things are Javascript-isms that have no place in a PHP library. Furthermore, some functions make better sense for PHP usage if implemented differently from Ramda.js.
 * Pramda's target audience has different needs that Ramda.js's audience. So development has to reflect that.
 
 ### Usage
@@ -485,7 +485,7 @@ P::contains(TRUE, P::map($hasElvis, $planets)); //=> false
 ### Function List
 
 Proper documentation is coming up next. For now, please see the list below and the doc blocks in the source code.
-Also, you can see examples how to use each function on the unit tests.
+Also, you can see examples how to use each function in the unit tests.
 
 **Legend**:
 * `Yes` Explicitly supported
