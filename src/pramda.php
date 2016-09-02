@@ -2403,7 +2403,7 @@ class P
      *
      * @return callable
      */
-    private function _curry(callable $callable, $args, $arity)
+    private static function _curry(callable $callable, $args, $arity)
     {
 
         return function () use ($callable, $args, $arity) {
