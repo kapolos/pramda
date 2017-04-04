@@ -7,7 +7,7 @@
 
 ---
 
-###ELI5: What is Functional Programming and Why Do I Care?
+### ELI5: What is Functional Programming and Why Do I Care?
 
 Is it possible that something you're working on could be done in a different way? Turns out that yes it can, and it can be done in multiple ways - or "paradigms" if you prefer a fancier term. One such paradigm is Functional Programming.
 
@@ -75,7 +75,7 @@ function getTweets($username) {
 function sortByDateAsc($list) {
 	// returns sorted array
 }
-```
+````
 
 Then we could do:
 
