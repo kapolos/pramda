@@ -367,7 +367,7 @@ Pramda uses the venerable PHPUnit for testing.
 
 ```bash
 
-#vendor\bin\phpunit.bat --debug
+# vendor\bin\phpunit.bat --debug
 PHPUnit 4.8.21 by Sebastian Bergmann and contributors.
 
 ................................................................ 64 / 79 ( 81%)
