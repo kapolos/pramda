@@ -529,6 +529,7 @@ Also, you can see examples how to use each function in the unit tests.
 | lt | - | - | Yes
 | lte | - | - | Yes
 | map | Yes | Yes | Yes 
+| mapSameKey | Yes | Yes | Yes 
 | mathMod | - | - | Yes
 | max | Yes | Yes | Yes
 | maxBy | Yes | Yes | Yes
