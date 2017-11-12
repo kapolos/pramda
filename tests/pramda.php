@@ -1,6 +1,8 @@
 <?php
 
-class Pramda_TestCase extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class Pramda_TestCase extends TestCase
 {
 
     public function testAdd()
@@ -1090,4 +1092,3 @@ class Pramda_TestCase extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['1a', '2b'], $concat([1, 2], $a()));
     }
 }
- 
