@@ -1009,6 +1009,37 @@ class P
     /**
      * @return mixed|callable
      */
+    public static function mapSameKey()
+    {
+        $args = func_get_args();
+
+        /**
+         * Returns a new list, preserving keys, constructed by applying the supplied function to every element of the supplied list.
+         * The supplied function takes the current item and its index position as arguments
+         *
+         * @param callable        $callable (value, key)
+         * @param Generator|array $list
+         *
+         * @category List
+         *
+         * @return Generator
+         * @throws Exception
+         */
+        $_mapSameKey = function ($callable, $list) {
+            Exception::assertCallable($callable);
+            Exception::assertList($list);
+
+            foreach ($list as $key => $value) {
+                yield $key => self::apply($callable, [$value, $key]);
+            }
+        };
+
+        return call_user_func_array(self::curry2($_mapSameKey), $args);
+    }
+
+    /**
+     * @return mixed|callable
+     */
     public static function mathMod()
     {
         $args = func_get_args();

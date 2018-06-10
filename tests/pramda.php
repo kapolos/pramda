@@ -523,6 +523,29 @@ class Pramda_TestCase extends \PHPUnit_Framework_TestCase
         $this->assertEquals(10, $modded[0] + $modded[1]);
     }
 
+    public function testMapSameKey()
+    {
+        $a = function () {
+            yield 1;
+            yield 3;
+        };
+        $modulo = function ($number) {
+            return $number % 2;
+        };
+        $modded = P::toArray(P::mapSameKey($modulo, $a()));
+        $this->assertEquals(2, $modded[0] + $modded[1]);
+
+        $biasedModulo = function ($number, $index) {
+            return $number % 2 + (int)$index;
+        };
+        $a = function () {
+            yield '4' => 1;
+            yield '5' => 2;
+        };
+        $modded = P::toArray(P::mapSameKey($biasedModulo, $a()));
+        $this->assertEquals(10, $modded['4'] + $modded['5']);
+    }
+
     public function testMathMod()
     {
         $modBase = P::flip('P::mathMod', 2);
@@ -1090,4 +1113,4 @@ class Pramda_TestCase extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['1a', '2b'], $concat([1, 2], $a()));
     }
 }
- 
+
