@@ -17,7 +17,8 @@ php -r "unlink(\'composer-setup.php\');"'''
     }
     stage('Deploy') {
       steps {
-        sh 'tar -zcvf artefact/results.tar.gz artefact'
+        sh 'tar -zcvf results.tar.gz artefact'
+        sh 'mv results.tar.gz artefact/results.tar.gz'
       }
     }
   }
