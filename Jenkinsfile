@@ -15,5 +15,10 @@ php -r "unlink(\'composer-setup.php\');"'''
         sh 'vendor/bin/phpunit --log-junit artefact/xunit-result.xml --coverage-clover artefact/coverage.xml --coverage-html artefact/coverage'
       }
     }
+    stage('Deploy') {
+      steps {
+        sh 'tar -zcvf artefact/results.tar.gz artefact'
+      }
+    }
   }
 }
