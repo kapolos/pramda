@@ -15,11 +15,10 @@ php -r "unlink(\'composer-setup.php\');"'''
         sh 'vendor/bin/phpunit --log-junit artefact/xunit-result.xml --coverage-clover artefact/coverage.xml --coverage-html artefact/coverage'
       }
     }
-    stage('Deploy') {
-      steps {
-        sh 'tar -zcvf results.tar.gz artefact'
-        sh 'mv results.tar.gz artefact/results.tar.gz'
-      }
+  }
+  post {
+    always {
+      xunit testTimeMargin: '3000', thresholdMode: 1, thresholds: [failed(), skipped()], tools: [PHPUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'artefact/xunit-*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
     }
   }
 }
