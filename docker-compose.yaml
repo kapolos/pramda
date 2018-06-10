@@ -1,0 +1,7 @@
+version: '2'
+services:
+  php:
+    build: .
+    working_dir: /opt/project
+    volumes:
+        - ./:/opt/project
